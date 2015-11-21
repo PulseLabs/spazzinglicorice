@@ -1,43 +1,46 @@
 <!DOCTYPE html>
-<html >
+<html ng-app="devslate">
 	<head>
 		<meta charset="UTF-8">
-		<title>Whiteboard Me</title>
+		<title>Dev Slate</title>
 		<!-- <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'> -->
-		<a href="https://github.com/SpazzingLicorice/spazzinglicorice">
-			<img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png">
-		</a>
-		
+		<!-- </a> -->
+
 		<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="css/style.css">
-		
+    <link rel="stylesheet" href="css/bootstrap-button.css">
+      <script src='https://code.jquery.com/jquery-2.1.4.min.js'></script>
+      <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.js"></script>
+
+      <link href='https://fonts.googleapis.com/css?family=Open+Sans:700' rel='stylesheet' type='text/css'>
 	</head>
 	<body>
-		<video autoplay id="bgvid" loop>
-			<!-- Video is 8MB. Uncomment when ready to show final product. -->
-			<source src="assets/dayinthelifeshort-720p.mov" type="video/mp4">
-		</video>
-		<header id="header">
-			<h1>Coderboard</h1>
-			<p>Fast &nbsp;&bull;&nbsp; Free &nbsp;&bull;&nbsp; For Your Coding Interviews</p>
-			<div class="buttons">
-				<a href="/new">
-					<!-- <button class="pure-button"> -->
-					<button>Start Whiteboarding Now</button>
-				</a>
-				<a href="/auth/facebook" class="buttons"> Log-in With Facebook </a>
-			</div>
-			<div class="buttons">
-				<a href="/documentation">
-					<!-- <button class="pure-button"> -->
-					<button>Documentation</button>
-				</a>
-			</div>
-			
-			
-		</header>
-		<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-		
-		
+
+		<div ui-view></div>
+    <div ui-view="whiteboard"></div>
+    <div ui-view="chatbox"></div>
+    <div ui-view="codebox"></div>
+    <div ui-view="toolbar"></div>
+
 	</body>
+	<!-- <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script> -->
+  <!-- <script src="lib/jquery/dist/jquery.min.js"></script> -->
+  <!-- <script src='public/lib/jquery-ui/jquery-ui.min.js'></script> -->
+  <!-- <script src="lib/angular-route/angular-route.js"></script> -->
+  <!-- <script src="lib/angular-dragdrop/src/angular-dragdrop.min.js"></script> -->
+  <script src="http://simplewebrtc.com/latest.js"></script>
+  <script src="https://cdn.socket.io/socket.io-1.3.7.js"></script>
+  <!-- <script src="lib/angular-ui-router/release/angular-ui-router.min.js"></script> -->
+  <script src="app/services.js"></script>
+  <script src='app/whiteboard/whiteboard.js'></script>
+  <script src='app/chatbox/chatbox.js'></script>
+  <script src='app/codebox/codebox.js'></script>
+  <script src='app/splash/splash.js'></script>
+  <script src='app/toolbar/toolbar.js'></script>
+  <script src='app/user/user.js'></script>
+  <script src='app/app.js'></script>
+
+
 </html>
