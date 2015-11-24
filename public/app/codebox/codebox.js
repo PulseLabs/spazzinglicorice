@@ -1,7 +1,7 @@
 angular.module('devslate.codebox', ['ui.codemirror'])
 
 .controller('CodeboxCtrl', function (Socket, $scope) {
-  var api = Socket.socket;
+  var api = Socket;
    $scope.editorOptions = {
         lineWrapping : true,
         lineNumbers: true,
@@ -15,10 +15,10 @@ angular.module('devslate.codebox', ['ui.codemirror'])
 
 
   $scope.send = function () {
-    Socket.socket.emit('code-text', $scope.code);
+    Socket.emit('code-text', $scope.code);
   };
 
-  
+
 
   $scope.codebox = function (_editor) {
      // Editor part
@@ -33,12 +33,12 @@ angular.module('devslate.codebox', ['ui.codemirror'])
 
       api.on('code-text', function (data) {
         copy.setValue(data);
-         });  
+         });
 
      //  // Events
      //  _editor.on("beforeChange", function(){ ... });
      //  _editor.on("change", function(){ ... });
     };
-  
+
 
 });

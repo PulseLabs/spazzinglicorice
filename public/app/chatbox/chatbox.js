@@ -3,7 +3,6 @@ angular.module('devslate.chatbox', [])
 .controller('ChatboxCtrl', function ($scope, User, Socket) {
   // ioRoom = $stateParams.boardUrl;
   // socket: io(ioRoom);
-  var socket = Socket.socket;
 
   // all messages from users will be stored in texts array
   $scope.texts = [];
@@ -14,10 +13,10 @@ angular.module('devslate.chatbox', [])
   $scope.sendMessage = function (message, $event) {
     $event.preventDefault();
     console.log(message);
-    socket.emit('chat message', message);
+    Socket.emit('chat message', message);
     $scope.message = '';
     return false;
-  }
+  };
 
   $scope.addTodo = function (list, $event) {
     $event.preventDefault();
@@ -30,11 +29,11 @@ angular.module('devslate.chatbox', [])
       });
     $scope.list = '';
     return false;
-  }
+  };
 
-  socket.on('chat message', function (msg) {
+  Socket.on('chat message', function (msg) {
     console.log(msg);
     $scope.texts.push(msg);
     $scope.$apply();
-  });  
+  });
 });

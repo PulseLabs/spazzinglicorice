@@ -21,117 +21,83 @@ angular.module('devslate.services', [])
 })
 
 .factory('Board', function ($http, Socket) {
-
-  // var canvas;
-  var webrtc;
-  var otherUserActive = false;
-  var stroke = [];
-  var prevPixel = [];
-  var mouse;
-  var pen;
-  var draw;
-  var initializeMouseDown;
-
-  var initialize = function (canvasElement, webrtcElements) {
-    webrtc = new SimpleWebRTC({
-      localVideoEl: webrtcElements.local,
-      remoteVideosEl: webrtcElements.remote,
-      autoRequestMedia: true
-    });
-
-    webrtc.on('readyToCall', function () {
-      webrtc.joinRoom(Socket.ioRoom);
-    });
-
-    var canvas = canvasElement;
-    canvas[0].width = window.innerWidth;
-    canvas[0].height = window.innerHeight * 0.7;
-    var context = canvas[0].getContext("2d");
-
-    mouse = {
-      click: false,
-      drag: false,
-      x: 0,
-      y: 0
-    };
-
-    pen = {
-      fillStyle: 'solid',
-      strokeStyle: 'black',
-      lineWidth: 5,
-      lineCap: 'round'
-    };
-
-    draw = function (x, y) {
-      context.lineTo(x, y);
-      context.stroke();
-    };
-
-    initializeMouseDown = function (pen, moveToX, moveToY) {
-      // Copy over current pen properties (e.g. fillStyle).
-      for (var key in pen) {
-        context[key] = pen[key];
-      }
-
-      // Begin draw.
-      context.beginPath();
-      context.moveTo(moveToX, moveToY);
-    };
-
-    Socket.socket.on('join', function (board) {
-      console.log("Joining the board.");
-
-      // Check for null board data.
-      if (board) {
-        for (var i = 0; i < board.strokes.length; i++) {
-          // Check for null stroke data.
-          if (board.strokes[i]) {
-            // Set pen and draw path.
-            var strokesArray = board.strokes[i].path;
-            var penProperties = board.strokes[i].pen;
-            initializeMouseDown(penProperties, strokesArray[0][0], strokesArray[0][1]);
-
-            // Draw the path according to the strokesArray (array of coordinate tuples).
-            for (var j = 0; j < strokesArray.length; j++) {
-              draw(strokesArray[j][0], strokesArray[j][1]);
-            }
-            context.closePath();
-          }
-        }
-      }
-      return canvas;
-    });
-
-    // If another user is drawing, App.socket will receive a 'drag' event. App listens for the drag event and renders the drawing element created by the other user.
-    // Note that App prevents the current user from drawing while the other user is still drawing.
-    Socket.socket.on('drag', function (data) {
-      otherUserActive = true;
-      console.log("Receiving data from another user:", data);
-
-      // ```App.prevPixel``` is an array of the previous coordinates sent, so drawing is smoothly rendered across different browsers.
-      // If the ```App.prevPixel``` array is empty (i.e., this is the first pixel of the drawn element), then prevPixel is set as the coordinates of the current mouseclick.
-      if (prevPixel.length === 0) {
-        prevPixel = data.coords;
-      }
-
-      // Initialize beginning coordinates and drawing.
-      initializeMouseDown(data.pen, prevPixel[0], prevPixel[1]);
-      draw(data.coords[0], data.coords[1]);
-
-      // Set the current coordinates as App.prevPixel, so the next pixel rendered will be smoothly drawn from these coordinate points to the next ones.
-      prevPixel = data.coords;
-    });
-
-    // When the user has mouseup (and finished drawing) then ```App.prevPixel``` will be emptied.
-    Socket.socket.on('end', function() {
-      prevPixel = [];
-      context.closePath();
-      otherUserActive = false;
-    });
-  };
-
-
-
+//
+//
+//   var initialize = function (canvasElement, webrtcElements) {
+//     // var webrtc = new SimpleWebRTC({
+//     //   localVideoEl: webrtcElements.local,
+//     //   remoteVideosEl: webrtcElements.remote,
+//     //   autoRequestMedia: true
+//     // });
+//
+//     // webrtc.on('readyToCall', function () {
+//     //   webrtc.joinRoom(Socket.ioRoom);
+//     // });
+//
+//   //   canvas[0].width = window.innerWidth;
+//   //   canvas[0].height = window.innerHeight * 0.7;
+//   //   var context = canvas[0].getContext("2d");
+//   //
+//   //   Socket.on('join', function (board) {
+//   //     console.log("Joining the board.");
+//   //
+//   //     // Check for null board data.
+//   //     if (board) {
+//   //       for (var i = 0; i < board.strokes.length; i++) {
+//   //         // Check for null stroke data.
+//   //         if (board.strokes[i]) {
+//   //           // Set pen and draw path.
+//   //           var strokesArray = board.strokes[i].path;
+//   //           var penProperties = board.strokes[i].pen;
+//   //           initializeMouseDown(penProperties, strokesArray[0][0], strokesArray[0][1]);
+//   //
+//   //           // Draw the path according to the strokesArray (array of coordinate tuples).
+//   //           for (var j = 0; j < strokesArray.length; j++) {
+//   //             draw(strokesArray[j][0], strokesArray[j][1]);
+//   //           }
+//   //           context.closePath();
+//   //         }
+//   //       }
+//   //     }
+//   //   });
+//   //
+//   //   // If another user is drawing, App.socket will receive a 'drag' event. App listens for the drag event and renders the drawing element created by the other user.
+//   //   // Note that App prevents the current user from drawing while the other user is still drawing.
+//   //   Socket.on('drag', function (data) {
+//   //     otherUserActive = true;
+//   //     console.log("Receiving data from another user:", data);
+//   //
+//   //     // ```App.prevPixel``` is an array of the previous coordinates sent, so drawing is smoothly rendered across different browsers.
+//   //     // If the ```App.prevPixel``` array is empty (i.e., this is the first pixel of the drawn element), then prevPixel is set as the coordinates of the current mouseclick.
+//   //     if (prevPixel.length === 0) {
+//   //       prevPixel = data.coords;
+//   //     }
+//   //
+//   //     // Initialize beginning coordinates and drawing.
+//   //     initializeMouseDown(data.pen, prevPixel[0], prevPixel[1]);
+//   //     draw(data.coords[0], data.coords[1]);
+//   //
+//   //     // Set the current coordinates as App.prevPixel, so the next pixel rendered will be smoothly drawn from these coordinate points to the next ones.
+//   //     prevPixel = data.coords;
+//   //   });
+//   //
+//   //   // When the user has mouseup (and finished drawing) then ```App.prevPixel``` will be emptied.
+//   //   Socket.on('end', function() {
+//   //     prevPixel = [];
+//   //     context.closePath();
+//   //     otherUserActive = false;
+//   //   });
+//   //   console.log('about to return from Board.initialize');
+//   //   return {
+//   //     webrtc: webrtc,
+//   //     canvas: canvas,
+//   //     mouse: mouse,
+//   //     pen: pen,
+//   //     draw: draw,
+//   //     initializeMouseDown: initializeMouseDown
+//   //   };
+//   // };
+//   //
   var newBoard = function () {
     console.log('called board.newBoard');
     return $http({
@@ -140,50 +106,86 @@ angular.module('devslate.services', [])
       data: {}
     })
     .then(function (resp) {
-      //if we change the new route to do something, uncomment this
-      //return resp.data;
+      console.log('data: ', resp.data);
+      return resp.data;
     });
   };
 
-  return {
-    initialize: initialize,
-    newBoard: newBoard,
-    webrtc: webrtc,
-    otherUserActive: otherUserActive,
-    mouse: mouse,
-    initializeMouseDown: initializeMouseDown,
-    stroke: stroke,
-    pen: pen,
-    draw: draw
-  };
-
-})
-.factory('BoardDB', function ($http) {
-
-  var createBoard = function (name) {
+  var connectBoard = function (id) {
     return $http({
-      method: 'POST',
-      data: {name: name},
-      url: 'http://localhost:8080/api/board'
+      method: 'GET',
+      url: '/board/' + id,
+      data: {}
+    })
+    .then(function (resp) {
+      console.log('data: ', resp.data);
+      return resp.data;
     });
   };
 
   return {
-    createBoard: createBoard
-  }
+    // initialize: initialize,
+    newBoard: newBoard,
+    connectBoard: connectBoard
+    // otherUserActive: otherUserActive,
+    // stroke: stroke,
+  };
+//
 })
 
-.factory('Socket', function ($stateParams) {
-  var ioRoom = $stateParams.boardUrl;
-  var socket = io('http://localhost:8080/board/' + ioRoom);
+// .factory('Socket', function () {
+//   // var ioRoom = window.location.href;
+//   // console.log('ioRoom inside Socket: ', ioRoom);
+//   // var socket = io(ioRoom);
+//   var ioRoom;
+//   var socket;
+//
+//   var setSocket = function (namespace) {
+//     // ioRoom = window.location.href;
+//     // console.log('ioRoom inside Socket: ', ioRoom);
+//     socket = io(namespace);
+//   };
+//
+//   var getSocket = function () {
+//     return socket;
+//   };
+//   return {
+//     setSocket: setSocket,
+//     socket: socket,
+//     ioRoom: ioRoom
+//   };
+// })
+
+.factory('Socket', function ($rootScope) {
+  var socket = io;
 
   return {
-    socket: socket,
-    ioRoom: ioRoom
+    set: function (ioRoom) {
+      socket = io.connect('http://localhost:8080/' + ioRoom);
+      console.log('set socket to: ', ioRoom);
+      console.log('socket: ', socket);
+    },
+    on: function (eventName, callback) {
+      console.log('set socket listener: ', eventName);
+      socket.on(eventName, function () {
+        var args = arguments;
+        $rootScope.$apply(function () {
+          callback.apply(socket, args);
+        });
+      });
+    },
+    emit: function (eventName, data, callback) {
+      socket.emit(eventName, data, function () {
+        var args = arguments;
+        $rootScope.$apply(function () {
+          if (callback) {
+            callback.apply(socket, args);
+          }
+        });
+      });
+    }
   };
 })
-
-
 
 .factory('Chat', function($scope, $element, tools) {
   // var sendMessages = function () {
@@ -223,7 +225,7 @@ angular.module('devslate.services', [])
   var addTodo = function (todo) {
     return $http({
       method: 'POST',
-      data: {todo: todo},
+      data: todo,
       url: 'http://localhost:8080/api/user/todo'
     });
   };
@@ -258,6 +260,12 @@ angular.module('devslate.services', [])
       console.log(res);
       return res.data;
     });
+  };
+
+
+
+  var getAllUser = function () {
+
   };
 
   return {

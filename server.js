@@ -45,7 +45,7 @@ app.use(passport.session()); // persistent login sessions
 // require('./app/routes.js')(app, passport);
 
 //////////////////////////////////////////////////////////////////////////
- 
+
 // ## Routes
 // **Static folder for serving application assets**
 app.use('/', express.static(__dirname + '/public'));
@@ -76,13 +76,14 @@ app.get('/new', function(req, res) {
     }
   });
   // Redirect to the new board.
-  res.redirect('/' + id);
+  handleSocket('/' + id, board, io);
+  res.send(id);
 });
 
 
 // **Wildcard route & board id handler.**
 
-//TODO: Need this to be acutally routed --> COMMENTED OUT ORIGIONAL BELOW
+//TODO: Need this to be acutally routed --> COMMENTED OUT ORIGINAL BELOW
 ////////////////////////////////////////////////////////////////////////////////////////////////
 // app.get('/564eca8fe594c70300b6380b', isLoggedIn, function(req, res) {
 //   var id = req.url.slice(1);
@@ -100,6 +101,22 @@ app.get('/new', function(req, res) {
 //     }
 //   });
 // });
+app.get('/564eca8fe594c70300b6380b', isLoggedIn, function(req, res) {
+  var id = req.url.slice(1);
+  Board.findOne({id: id}, function(err, board) {
+    // If the board doesn't exist, or the route is invalid,
+    // then redirect to the home page.
+    if (err) {
+      res.redirect('/');
+    } else {
+      // Invoke [request handler](../documentation/sockets.html) for a new socket connection
+      // with board id as the Socket.io namespace.
+      handleSocket(req.url, board, io);
+      // Send back whiteboard html template.
+      res.send(req.url);
+    }
+  });
+});
 
 ///////////////////// FACEBOOK ROUTES //////////////////////////////////////////
 
@@ -135,7 +152,7 @@ require('./server/user/userRoutes.js')(userRouter);
 require('./server/board/boardRoutes.js')(boardRouter, Board, io);
 
 // TODO: add isLoggedIn
-app.get('/board/:url', function(req, res) {
+app.get('/board/:url', function (req, res) {
 // app.get('/board', isLoggedIn, function(req, res) {
   var url = req.params.url;
   console.log('url: ', url);

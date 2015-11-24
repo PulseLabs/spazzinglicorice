@@ -20,6 +20,10 @@ var connect = function(boardUrl, board, io) {
     //require our separate modules - drawing, chat, etc...
     console.log('work');
     require('./drawing/drawing.js')(socket, Board);
+
+    console.log('about to emit join, board: ', board);
+    socket.emit('join', board);
+
     socket.on('chat message', function (msg) {
       console.log('are you working?');
       console.log('chatter' + msg);
@@ -35,11 +39,11 @@ var connect = function(boardUrl, board, io) {
           socket.broadcast.emit('code-text', msg);
     });
 
-    
+
     // require('./chatter/chatter.js')(socket, whiteboard);
 
     // Send the current state of the board to the client immediately on joining.
-    socket.emit('join', board);
+
   });
 };
 

@@ -5,12 +5,12 @@
     <title>Dev Slate</title>
     <!-- <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'> -->
     <!-- </a> -->
-
-    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'> -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/bootstrap-button.css">
-      <script src='https://code.jquery.com/jquery-2.1.4.min.js'></script>
-      <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+      <script src="bower_components/jquery/dist/jquery.min.js"></script>
+      <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.js"></script>
 
@@ -20,17 +20,19 @@
       <link rel=stylesheet href="bower_components/codemirror/lib/codemirror.css">
       <link rel=stylesheet href="bower_components/codemirror/theme/solarized.css">
 
-      <link rel="stylesheet" type="text/css" href="bower_components/dropzone/downloads/css/dropzone.css">
-      <script type="text/javascript" src="bower_components/dropzone/downloads/dropzone.min.js"></script>
-  </head>
-  <body>
+	</head>
+	<body>
 
     <div ui-view></div>
-    <div ui-view="whiteboard"></div>
-    <div ui-view="chatbox"></div>
-    <div ui-view="filedrop"></div>
-    <div ui-view="codebox"></div>
-    <div ui-view="toolbar"></div>
+    <div class="container outer">
+      <div class="row">
+        <div ui-view="whiteboard" class="whiteboard col-md-7"></div>
+        <div ui-view="chatbox"></div>
+        <div ui-view="codebox" class="codebox col-md-5"></div>
+        <div ui-view="filedrop"></div>
+        <div ui-view="toolbar"></div>
+      </div>
+    </div>
 
   </body>
   <!-- <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script> -->
@@ -39,24 +41,23 @@
   <!-- <script src="lib/angular-route/angular-route.js"></script> -->
   <!-- <script src="lib/angular-dragdrop/src/angular-dragdrop.min.js"></script> -->
   <script src="http://simplewebrtc.com/latest.js"></script>
-  <script src="https://cdn.socket.io/socket.io-1.3.7.js"></script>
+  <!-- <script src="https://cdn.socket.io/socket.io-1.3.7.js"></script> -->
+  <script src="/socket.io/socket.io.js"></script>
   <!-- <script src="lib/angular-ui-router/release/angular-ui-router.min.js"></script> -->
-  
-  
   <script src="app/services.js"></script>
-  <script src='app/filedrop/filedrop.js'></script>
   <script src='app/whiteboard/whiteboard.js'></script>
   <script src='app/chatbox/chatbox.js'></script>
   <script src='app/codebox/codebox.js'></script>
   <script src='app/splash/splash.js'></script>
   <script src='app/toolbar/toolbar.js'></script>
+  <script src='app/filedrop/filedrop.js'></script>
   <script src='app/user/user.js'></script>
   <script src='app/app.js'></script>
-  
+
   <!-- Codebox dependency scripts -->
   <script src="bower_components/codemirror/lib/codemirror.js"></script>
   <script src="bower_components/codemirror/mode/javascript/javascript.js"></script>
   <script src="bower_components/codemirror/keymap/sublime.js"></script>
   <script src="bower_components/angular-ui-codemirror/ui-codemirror.min.js"></script>
-
+  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 </html>

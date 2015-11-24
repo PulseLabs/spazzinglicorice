@@ -3,13 +3,17 @@ html {
   font-family: 'Montserrat', sans-serif;
 }
 
-body {
+canvas {
+  /*height: 100%;*/
+  /*width: 100%;*/
+}
+/*body {
   margin: 0;
   padding: 0;
   background: #000;
   color: #000;
   /*font-family: 'Source Sans Pro', sans-serif;*/
-  font-family: 'Montserrat', sans-serif;
+  /*font-family: 'Montserrat', sans-serif;
   font-size: 15pt;
   letter-spacing: -0.025em;
   line-height: 1.75em;
@@ -22,11 +26,32 @@ body {
   position: absolute;
   width: 100%;
   height: 100%;
+}*/
+
+.outer {
+  display: table;
 }
 
-video {
+.whiteboard {
+  /*float: left;*/
+  border: 2px solid black;
+  /*height: 100%;*/
+  padding: 0px;
+  display: table-cell;
+  height: 30em;
+}
+
+.codebox {
+  /*float: right;*/
+  margin: 0px;
+  padding: 0px;
+  height: 30em;
+  display: table-cell;
+}
+
+/*video {
 /*  position: fixed;
-  /*-webkit-transform: translateX(-50%) translateY(-50%);*/
+  /*-webkit-transform: translateX(-50%) translateY(-50%);
   top: 0;
   z-index: -100;
   left: 0;
@@ -35,10 +60,10 @@ video {
   position: absolute;
   margin: 0;
   padding: 0;
-  background-size: cover;*/
+  background-size: cover;
   -webkit-transition: 1.1s opacity;
   transition: 1.1s opacity;
-  /*opacity: 0.3;*/
+  /*opacity: 0.3;
   -webkit-animation: video 1.1s 1.1s forwards;
   animation: video 1.1s 1.1s forwards;
 }
@@ -112,7 +137,7 @@ video {
   border-width: 2px;
   border-color: white;
   box-shadow: none;
-}*/
+}
 
 button {
   background-color:#ffffff;
@@ -122,7 +147,7 @@ button {
   border:2px solid #ededed;
   display:inline-block;
   cursor:pointer;
-  /*color:#387ae3;*/
+  /*color:#387ae3;
   font-size:15px;
   padding:8px 56px;
   text-decoration:none;
@@ -138,4 +163,4 @@ button:active {
 
 div.buttons {
   margin-top: 0.4em;
-}
+}*/
