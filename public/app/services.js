@@ -126,8 +126,8 @@ angular.module('devslate.services', ['ngCookies'])
     return $http({
       method: 'POST',
       data: {name: name},
-      // url: 'http://devslate.elasticbeanstalk.com/api/board'
-      url: 'http://localhost:8080/api/board'
+      url: 'http://devslate.elasticbeanstalk.com/api/board'
+      // url: 'http://localhost:8080/api/board'
     });
   };
 
@@ -146,7 +146,8 @@ angular.module('devslate.services', ['ngCookies'])
 
   return {
     set: function (ioRoom) {
-      socket = io.connect('http://localhost:8080/' + ioRoom);
+      socket = io.connect('http://devslate.elasticbeanstalk.com/' + ioRoom);
+      // socket = io.connect('http://localhost:8080/' + ioRoom);
       console.log('set socket to: ', ioRoom);
       console.log('socket: ', socket);
     },
@@ -191,8 +192,8 @@ angular.module('devslate.services', ['ngCookies'])
   var getUser = function () {
     return $http({
       method: 'GET',
-      // url: 'http://devslate.elasticbeanstalk.com/api/user'
-      url: 'http://localhost:8080/api/user'
+      url: 'http://devslate.elasticbeanstalk.com/api/user'
+      // url: 'http://localhost:8080/api/user'
     }).then(function (res) {
       // user object
       return res.data;
@@ -203,8 +204,8 @@ angular.module('devslate.services', ['ngCookies'])
   var getTodos = function () {
     return $http({
       method: 'GET',
-      // url: 'http://devslate.elasticbeanstalk.com/api/user/todo'
-      url: 'http://localhost:8080/api/user/todo'
+      url: 'http://devslate.elasticbeanstalk.com/api/user/todo'
+      // url: 'http://localhost:8080/api/user/todo'
     }).then(function (res) {
       // return todos list(Array)
       console.log('please get Todos');
@@ -219,8 +220,8 @@ angular.module('devslate.services', ['ngCookies'])
     return $http({
       method: 'POST',
       data: {todo: todo},
-      // url: 'http://devslate.elasticbeanstalk.com/api/user/todo'
-      url: 'http://localhost:8080/api/user/todo'
+      url: 'http://devslate.elasticbeanstalk.com/api/user/todo'
+      // url: 'http://localhost:8080/api/user/todo'
     });
   };
 
@@ -228,8 +229,8 @@ angular.module('devslate.services', ['ngCookies'])
   var getBookmarks = function () {
     return $http({
       method: 'GET',
-      // url: 'http://devslate.elasticbeanstalk.com/api/user/bookmark'
-      url: 'http://localhost:8080/api/user/bookmark'
+      url: 'http://devslate.elasticbeanstalk.com/api/user/bookmark'
+      // url: 'http://localhost:8080/api/user/bookmark'
     }).then(function (res) {
       // return bookmarks list(Array)
       console.log(res);
@@ -242,16 +243,16 @@ angular.module('devslate.services', ['ngCookies'])
     return $http({
       method: 'POST',
       data: {bookmark: bookmark},
-      // url: 'http://devslate.elasticbeanstalk.com/api/user/bookmark'
-      url: 'http://localhost:8080/api/user/bookmark'
+      url: 'http://devslate.elasticbeanstalk.com/api/user/bookmark'
+      // url: 'http://localhost:8080/api/user/bookmark'
     });
   };
 
   var getBookmark = function (bookmarkUrl) {
     return $http({
       method: 'GET',
-      // url: 'http://devslate.elasticbeanstalk.com/api/user/bookmark/' + bookmarkUrl
-      url: 'http://localhost:8080/api/user/bookmark/' + bookmarkUrl
+      url: 'http://devslate.elasticbeanstalk.com/api/user/bookmark/' + bookmarkUrl
+      // url: 'http://localhost:8080/api/user/bookmark/' + bookmarkUrl
     }).then(function (res) {
       // return bookmarks list(Array)
       console.log(res);

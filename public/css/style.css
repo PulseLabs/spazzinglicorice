@@ -5,6 +5,10 @@ html {
 
 html, body { height: 100%; width: 100%; margin: 0; }
 
+body {
+  margin-top: -37px;
+}
+
 canvas {
   height: 100%;
   width: 100%;
@@ -18,16 +22,27 @@ canvas {
 
 .cover-heading {
   font-size: 40px;
-  margin-bottom:10px;
+  padding-bottom: 40px;
+}
+
+.lead {
+  color: #d6d6d6;
+  text-shadow: 1px 1px black;
+}
+
+#facebookBtn {
+  background-color: #003366;
+  color: #dddddd;
+  border: 0px;
+}
+
+#facebookBtn:hover {
+  color: white;
 }
 
 .cover-container {
   font-family: 'Roboto Slab', serif;
   font-weight: Thin;
-}
-
-.facebookBtn:hover {
-  color: #eeeeee;
 }
 
 .cover-container h1 {

@@ -27,21 +27,21 @@
               <!-- <a href="/new"> -->
               <a ui-sref="board">
                 <!-- <button class="pure-button"> -->
-                <button class="btn btn-default">Start Now</button>
+                <button id="facebookBtn" class="btn btn-default">Start Now</button>
               </a>
             </div>
             <br>
             <div class="buttons">
               <a ui-sref="userpage">
                 <!-- <button class="pure-button"> -->
-                <button class="btn btn-default">Profile</button>
+                <button id="facebookBtn" class="btn btn-default">Profile</button>
               </a>
             </div>
           </div>
           <div ng-show="!(userIsAuth)" class="buttons">
             <!-- <h3>Please Log In</h3> -->
             <a href="/auth/facebook">
-              <button class="facebookBtn btn">Log In With Facebook</button>
+              <button id="facebookBtn" class="btn">Log In With Facebook</button>
             </a>
           </div>
         </p>
